@@ -1,0 +1,52 @@
+@font-face{
+ font-family:'digital-clock-font';
+ src: url('put_the_location_to_your_font.ttf or .otf');
+}
+
+body {
+    background-color: bisque;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; 
+    flex-direction: column;
+}
+
+#title{
+  font-family: 'Orbitron', sans-serif;
+  font-size: 4rem;
+  color: #008300; 
+  letter-spacing: 0.1em;
+}
+    
+.calcBody{
+    width: 450px;
+    height: 600px;
+    background-color: rgb(27, 24, 24);
+    display: flex;
+    flex: auto;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#screen{
+    width: 400px;
+    height: 100px;
+    background-color: slategray;
+    color: #008300; 
+    font-family: 'Orbitron', sans-serif;
+    border-radius: 20px;
+    display: flex;
+
+}
+
+.buttonPad{
+    width: 400px;
+    height: 400px;
+    background-color: slategray;
+    border: black solid 6px;
+    border-radius: 20px;
+}
