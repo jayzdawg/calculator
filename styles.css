@@ -17,10 +17,11 @@ body {
   font-size: 4rem;
   color: #008300; 
   letter-spacing: 0.1em;
+  text-align: center;
 }
     
 .calcBody{
-    width: 450px;
+    width: 425px;
     height: 600px;
     background-color: rgb(27, 24, 24);
     display: flex;
@@ -29,24 +30,48 @@ body {
     align-items: center;
     border-radius: 20px;
     flex-direction: column;
-    gap: 15px;
+    gap: 7px;
 }
 
 #screen{
-    width: 400px;
+    width: 375px;
     height: 100px;
     background-color: slategray;
-    color: #008300; 
+    color: #005000; 
     font-family: 'Orbitron', sans-serif;
+    font-size: 45px;
     border-radius: 20px;
+    border: #008300 solid 6px;
     display: flex;
+    align-items: center;
+    margin: 10px;
 
 }
 
 .buttonPad{
-    width: 400px;
+    width: 375px;
     height: 400px;
     background-color: slategray;
-    border: black solid 6px;
+    border: #008300 solid 6px;
     border-radius: 20px;
+    display: flex;
+}
+
+.numbers, .operators{
+    margin: 10px;
+}
+
+button{
+    width: 75px;
+    height: 75px;
+    margin: 1px;
+    font-size: 25px;
+    border-radius: 50px;
+    border: #008300 solid 3px;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+button:active {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background-color: #005000;
 }
