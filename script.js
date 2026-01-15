@@ -4,7 +4,7 @@ let firstNumber;
 let secondNumber;
 let operator;
 let result;
-let processStage = "stageOne";
+let calculateStage = "1";
 let clearScreen = false;
 
 //stageOne is the initial stage of the calculator where the operator is not selected and the first number data is being collected.
@@ -12,7 +12,7 @@ let clearScreen = false;
 
 const inputField = document.getElementById('screen');
     
-document.querySelectorAll('.numbers button').forEach(button => {
+document.querySelectorAll('.number-btn').forEach(button => {
     button.addEventListener('click', function() {
         // Get the data-value from the clicked button
         const buttonValue = this.getAttribute('data-value');
@@ -35,91 +35,113 @@ document.querySelectorAll('.operator-btn').forEach(button => {
 
         const operatorValue = this.getAttribute('data-value');
      
-        if (processStage == "stageOne"){
-        firstNumber = parseFloat(inputField.value);
-        operator = operatorValue;
-        clearScreen = true;
-        processStage = "stageTwo";
-        } else if (processStage == "stageTwo"){
-        secondNumber = parseFloat(inputField.value);
-        clearScreen = true;
-        operate(operator);
-        operator = operatorValue;
-        inputField.value = result;
-        firstNumber = result;
-        }
+        handleOperator(operatorValue);
 
     });
 
 })
+
+//Handles the operator
+function handleOperator(operatorValue){
+            if (calculateStage == "1"){
+        firstNumber = parseFloat(inputField.value);
+        operator = operatorValue;
+        clearScreen = true;
+        calculateStage = "2";
+        } else if (calculateStage == "2"){
+        secondNumber = parseFloat(inputField.value);
+        clearScreen = true;
+            if ((operator == "/") && (secondNumber == 0)){
+                error();
+            }else{
+                operate(operator, firstNumber, secondNumber);
+                operator = operatorValue;
+                inputField.value = result;
+                firstNumber = result;
+            }
+        }
+    
+}
 
 //Equals button
 
 const equals = document.getElementById('=');
   
     equals.addEventListener('click', function() {
-     if (operator == null || secondNumber == null){
+     if (operator == null){
         error();
-    }
+    } else if ((operator == "/") && (secondNumber == 0)){
+        error();
+    }else{
     secondNumber = parseFloat(inputField.value);
-    operate(operator);
+    operate(operator, firstNumber, secondNumber);
     inputField.value = result;
     firstNumber = result;
-    processStage = "stageOne";
+    calculateStage = "1";
+    }
     });
 
 
-const clearButton = document.getElementById('butt ac');    
+
+//Clear button
+const clearButton = document.getElementById('buttAc');    
     clearButton.addEventListener('click', function() {
     reset();
+      });
+
+//Delete button
+const delButton = document.getElementById('buttDel');    
+    delButton.addEventListener('click', function() {
+    inputField.value = inputField.value.slice(0, -1);
       });
 
 
 //error message
 
 function error(){
-    inputField.value = "excuse me?";
+    inputField.value = "How dare you?";
 }
+
+//reset function for AC button
 
 function reset(){
     inputField.value = "";
     firstNumber = 0;
     secondNumber = 0;
     operator = null;
-    processStage = "stageOne";
+    calculateStage = "1";
     result = null;
 }
 
 //ADD FUNCTION add number 1 and number 2. Triggered if operator == + when they hit equal. Same code for other operators.
 
-function addition(firstNumber, secondNumber){
-    return firstNumber + secondNumber;
+function addition(a, b){
+    return a + b;
 }
-function subtraction(firstNumber, secondNumber){
-    return firstNumber - secondNumber;
+function subtraction(a, b){
+    return a - b;
 }
-function multiplication(firstNumber, secondNumber){
-    return firstNumber * secondNumber;
+function multiplication(a, b){
+    return a * b;
 }
-function division(firstNumber, secondNumber){
-    return firstNumber / secondNumber;
+function division(a, b){
+    return a / b;
 }
 
 //Function which processes operations.
 
-
-function operate(operator){
+function operate(operator, a, b){
 
     if (operator == "+"){
-        result = addition(firstNumber, secondNumber);
+        result = addition(a, b);
     } else if (operator == "-"){
-        result = subtraction(firstNumber, secondNumber);
+        result = subtraction(a, b);
     } else if (operator == "*"){
-        result = multiplication(firstNumber, secondNumber);
+        result = multiplication(a, b);
     } else if (operator == "/"){
-        result = division(firstNumber, secondNumber);
-       
+        result = division(a, b);
+       }
     } 
 
-}
+
 
