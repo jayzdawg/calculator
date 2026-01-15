@@ -7,8 +7,8 @@ let result;
 let calculateStage = "1";
 let clearScreen = false;
 
-//stageOne is the initial stage of the calculator where the operator is not selected and the first number data is being collected.
-//stageTwo means the operator has been selected and the second number data is being collected.
+//"1" is the initial stage of the calculator where the operator is not selected and the first number data is being collected.
+//"2" means the operator has been selected and the second number data is being collected.
 
 const inputField = document.getElementById('screen');
     
@@ -20,7 +20,9 @@ document.querySelectorAll('.number-btn').forEach(button => {
         if (clearScreen == true){
         inputField.value = "";
         clearScreen = false;    
-        } 
+        } else if (inputField.value == "Nice try!") {
+        reset();
+        }
 
         inputField.value += buttonValue;    // Append the value to the input field
         
@@ -43,7 +45,9 @@ document.querySelectorAll('.operator-btn').forEach(button => {
 
 //Handles the operator
 function handleOperator(operatorValue){
-            if (calculateStage == "1"){
+        if (clearScreen === true) {
+        return; // Do nothing if no number entered yet
+        } else if (calculateStage == "1"){
         firstNumber = parseFloat(inputField.value);
         operator = operatorValue;
         clearScreen = true;
@@ -68,12 +72,12 @@ function handleOperator(operatorValue){
 const equals = document.getElementById('=');
   
     equals.addEventListener('click', function() {
-     if (operator == null){
+    secondNumber = parseFloat(inputField.value);
+    if (operator == null){
         error();
     } else if ((operator == "/") && (secondNumber == 0)){
         error();
     }else{
-    secondNumber = parseFloat(inputField.value);
     operate(operator, firstNumber, secondNumber);
     inputField.value = result;
     firstNumber = result;
@@ -95,11 +99,24 @@ const delButton = document.getElementById('buttDel');
     inputField.value = inputField.value.slice(0, -1);
       });
 
+//Decimal button
+const decimalButton = document.getElementById('decimal');    
+    decimalButton.addEventListener('click', function() {
+    
+    const decimal = this.getAttribute('data-value');
+
+    if (inputField.value.includes(".")) {
+    return;  // Do nothing if decimal already exists
+    } else {
+    inputField.value += decimal;    
+    }
+     });
+    
 
 //error message
 
 function error(){
-    inputField.value = "How dare you?";
+    inputField.value = "Nice try!";
 }
 
 //reset function for AC button
@@ -144,4 +161,24 @@ function operate(operator, a, b){
     } 
 
 
+//Just for fun
 
+function getRandomColor() {
+      const red = Math.floor(Math.random() * 256);
+      const green = Math.floor(Math.random() * 256);
+      const blue = Math.floor(Math.random() * 256);
+      return `rgb(${red}, ${green}, ${blue})`;
+    }
+
+const partyButton = document.getElementById('buttParty');    
+    partyButton.addEventListener('click', function() {
+    const randomColor = getRandomColor();
+      document.body.style.backgroundColor = randomColor;
+      });
+
+const fartSound = new Audio('sounds/fart.mp3');
+
+const poopButton = document.getElementById('buttPoop');    
+    poopButton.addEventListener('click', function() {
+    fartSound.play();
+      });
